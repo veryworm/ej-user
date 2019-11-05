@@ -2,7 +2,7 @@
     <div class="edit_address">
         <div class="header">
             <van-nav-bar
-                title="修改地址信息"
+                title="添加地址信息"
                 left-text="返回"
                 left-arrow
                 @click-left="onClickLeft"
@@ -36,6 +36,8 @@
                     <select v-model="form.province" name="" id="xialakuang" placeholder="请选取省份">
                       <option>{{form.province}}</option>
                       <option>北京省</option>
+                      <option>山东省</option>
+                      <option>天津省</option>
                     </select>
                 </van-col>
             </van-row>
@@ -48,10 +50,23 @@
                     <select v-model="form.area" name="" id="xialakuang" placeholder="请选取区域">
                       <option>{{form.area}}</option>
                       <option>798艺术区</option>
+                      <option>五环区</option>
+                      <option>外围</option>
                     </select>
                 </van-col>
             </van-row>
             </div>
+            
+             <!-- <div class="xian">
+                <van-row>
+                    <van-col span="4"><div class="shengfen"> <span style="color:red">*</span>customerId</div></van-col>
+                    <van-col span="8">
+                        <select v-model="form.customerId" name="" id="xialakuang" placeholder="请选取区域">
+                        <option>{{form.customerId}}</option>
+                        </select>
+                    </van-col>
+                </van-row>
+             </div> -->
 
              <div class="xian">
             <van-row>
@@ -63,19 +78,9 @@
             </div>
 
             </form>
-            <van-button @click="submitHandler" type="info">提交</van-button>
+            {{form}}
+            <van-button @click="submitHandler" type="danger" size="large">提交</van-button>
         </div>
-            <!-- <van-address-edit
-            :area-list="areaList"
-            :model="form"
-            show-delete
-            @save="onSave"
-            @delete="onDelete"
-            @change-area="changearea"
-            @change-detail="changedetail"
-            /> -->
-        {{form}}-----
-        {{areaList.province_list}}
     </div> 
 </template>
 <script>
@@ -84,63 +89,30 @@ export default {
     data(){
         return{
              form:{},
-             areaList:{
-                province_list: {
-                    110000: '北京市',
-                    120000: '天津市'
-                },
-                city_list: {
-                    110100: '北京市',
-                    110200: '县',
-                    120100: '天津市',
-                    120200: '县'
-                },
-                county_list: {
-                    110101: '东城区',
-                    110102: '西城区',
-                    110105: '朝阳区',
-                    110106: '丰台区',
-                    120101: '和平区',
-                    120102: '河东区',
-                    120103: '河西区',
-                    120104: '南开区',
-                    120105: '河北区',
-                    // ....
-                }
-             }
         }
     },
-    computed:{
-
-    },
     methods:{
+            created(){
+                
+            },
             ...mapActions('user',['SaveOrUpdateAddress']),
             // 返回
             onClickLeft() {
-                this.$router.push({path:'/address'})
-            },
-            onSave() {
-            Toast('save');
-            },
-            onDelete() {
-            Toast('delete');
-            },
-            changedetail(){
-                alert(1)
-            },
-            changearea(){
-                alert(1)
+                this.$router.push({path:'/address',query:{id:this.info.id}})
             },
             submitHandler(){
                this.SaveOrUpdateAddress(this.form)
                .then((response)=>{
-                      this.$message({type:"success",message:response.statusText});
+                     this.$notify({type:'success',
+                     message:'修改成功',
+                    });
+                this.$router.push({path:'/address',query:{id:this.info.id}})
                })
             }
         },
-        created(){
-            this.form = this.$route.query.address;
-        }
+         computed:{
+        ...mapState('user',['addresses','info'])
+        },
 }
 </script>
 <style scoped>

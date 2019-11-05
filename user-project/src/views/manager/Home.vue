@@ -1,8 +1,14 @@
 <template>
   <div class="home">
     <p>首页</p>
-    <div>
-      <img class="tupian" src="../../assets/home_02.png" alt="">
+    <!-- 轮播 -->
+    <div class="top">
+     <van-swipe :autoplay="3000" indicator-color="white">
+      <van-swipe-item><img src="../../assets/10-home.jpg" height="250px" width="100%" alt=""></van-swipe-item>
+      <van-swipe-item><img src="../../assets/11-home.jpg" height="250px" width="100%" alt=""></van-swipe-item>
+      <van-swipe-item><img src="../../assets/12-home.jpg" height="250px" width="100%" alt=""></van-swipe-item>
+    </van-swipe>
+    
     </div>
     <!-- ProductList -->
       <van-grid :column-num="3">
@@ -31,6 +37,15 @@
 <script>
 import {mapState, mapActions} from 'vuex'
 export default {
+  data(){
+    return {
+      images: [
+        
+        '../../assets/12-home.jpg',
+        '../../assets/12-home.jpg'
+      ]
+    }
+  },
   computed:{
     ...mapState("user",["info"]),
     ...mapState("category",["categories"])
@@ -47,6 +62,7 @@ export default {
 }
 </script>
 <style scoped>
+
 p{
   text-align: center;
   line-height: 1rem
@@ -58,4 +74,5 @@ p{
   width: 100%;
   height: 100%;
 }
+
 </style>

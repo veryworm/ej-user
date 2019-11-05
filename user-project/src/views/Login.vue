@@ -1,8 +1,8 @@
 <template>
     <div class="login">
         <div class="header">
-            <p>logo</p>
-            <h3>家政服务平台-客户端</h3>
+            <div><img width="100%" src=".././assets/logo1.png" alt=""></div>
+            <div class="logo-img">家净服务平台</div>
         </div>
         <!-- 表单 -->
         <van-cell-group>
@@ -24,8 +24,11 @@
             />
          </van-cell-group>
          <div class="anniu">
-         <van-button plain hairline type="default" @click="loginHandler">登录</van-button>
+         <van-button type="info" size="large" @click="loginHandler">登录</van-button>
          </div>
+         <van-row style="margin-top:10px;">
+             <van-col :span="4" :offset="17"><a @click.prevent="registerHandler" href="">用户注册</a></van-col>
+         </van-row>
     </div>
 </template>
 <script>
@@ -46,21 +49,29 @@ export default {
                 // 跳转到首页
                 this.$router.push({path:"home"})
             })
-        }
+        },
+        registerHandler(){
+            this.$router.push({path:"/userregister"})
+        },
     }
 }
 </script>
 <style scoped>
-    .header{
-        background-color: rgb(123, 166, 179);
-        text-align: center;
-        height:150px;
-        padding: 50px;
+    .logo-img{
+        font-size:24px;
+        z-index: 1;
+        top:22%;
+        left: 35%;
+        position:absolute;
+        color: aliceblue
     }
     .header>p{
          color: aliceblue
     }
     .anniu{
         text-align: center
+    }
+    a{
+        color:rgb(137, 179, 219)
     }
 </style>

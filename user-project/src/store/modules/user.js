@@ -1,4 +1,4 @@
-import {post_json, get, post} from '../../http/axios'
+import {post_array,post_json, get, post} from '../../http/axios'
 import {setToken,getToken,removeToken} from '../../utils/auth'
 export default {
     namespaced:true,
@@ -36,6 +36,10 @@ export default {
             commit("refreshToken",token);
             await dispatch("Info",token)
         },
+        async register({commit,dispatch},payload){
+            let response = await post_array("/customer/saveOrUpdate",payload)
+            return response;
+        },
         async info({commit,dispatch},token){
             let result = await get("/user/info",{token});
             //将用户信息设置到info中
@@ -43,28 +47,25 @@ export default {
             await dispatch("findAddressByUserId",result.data.id)
         },
         // 根据顾客id找到地址信息
-        async findAddressByUserId({commit},id){
+        async findAddressByUserId({commit,dispatch},id){
             let response = await get("/address/findByCustomerId?id="+id)
-            // .then((result)=>{
-            //     let addresses = [];
-            //     result.data.forEach((item)=>{
-            //         let address = {
-            //             id: item.id,
-            //             name: "张三",
-            //             tel: "13355551166",
-            //             address: item.province+""+item.city+""+item.area+""+item.address
-            //         }
-            //         addresses.push(address)
-            //     })
-            //     
-            //     commit("resetCurrentAddress",addresses[0])
-            // })
+            dispatch("findAddressByUserId?id="+id)
             commit("resetAddress",response.data)
         },
+        // 发现所有
+        async findAddressAll({commit}){
+            let response = await get("/address/findAll")
+            commit("resetAddress",response.data)
+        },
+        // 根据id删除地址信息
+        async deleteAddressByUserId({commit,dispatch},id){
+            let response = await get("/address/deleteById?id="+id)
+            dispatch("findAddressByUserId?id="+id)
+            return response;
+        },
         async SaveOrUpdateAddress({commit,dispatch},address){
-            let response = await post_json("/address/saveOrUpdate",address)
-            commit('resetAddress')
-            dispatch('findAddressByUserId')
+            let response = await post_array("/address/saveOrUpdate",address)
+            commit("resetAddress",response.data)
             return response;
         },
         async logout({commit}){

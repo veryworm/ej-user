@@ -22,13 +22,13 @@
                     <van-col :span="4">
                         <img class="pp" width="70px" height="76px" v-if="p.photo" :src="p.photo" alt="">
                     </van-col>
-                    <van-col :offset="1" :span="19">
-                        <div class="left">
+                    <van-col :offset="4" :span="18">
+                        <!-- <div class="left"> -->
                         <div> <strong>名称：</strong> {{p.name}}</div>
                         <div> <strong>价格：</strong> {{p.price}}</div>
                         <div> <strong>描述：</strong> {{p.description}}</div>
                         <div class="bianju"> <van-stepper v-model="value" /></div>
-                        </div>
+                        <!-- </div> -->
                     </van-col>
                 </van-row>
               </div>
@@ -38,7 +38,6 @@
       <van-submit-bar
         :price="3050"
         button-text="提交订单"
-        @submit="onSubmit"
         />
     </div>
 </template>
@@ -85,8 +84,7 @@ export default {
         border-radius: 20%;
     }
     .left{
-        padding-left: 10px;
-        border-bottom: 1px solid rgb(236, 234, 234)
+        /* border-bottom: 1px solid rgb(236, 234, 234) */
     }
     .bianju{
         margin-left: 55%

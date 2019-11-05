@@ -2,11 +2,17 @@
     <div class="login">
         <div class="header">我的{{info.name}}</div>
             <div class="logo">
-                <div class="tupian"><img style="border-radius:50%; width:100px; height:90px; padding:10px;" src="../../assets/home_23.png" alt=""></div>
-                 <div class="welcome">欢迎您{{info.name}}</div>
-        </div>
-        <div>
-          <van-cell @click="changeAddressHandler" title="常用地址" />
+                    <van-row>
+                        <van-col :span="4" :offset="1">
+                            <img style=" border-radius:10px" width="80px"  src="../../assets/header.jpg" alt="">
+                        </van-col>
+                        <van-col :span="4" :offset="2" style="margin-top:12px">
+                            <span style="font-weight:bold; font-size:17px">{{info.name}}</span>
+                        </van-col>
+                    </van-row>
+            </div>
+        <div style="margin-top:10px">
+          <van-cell @click="changeAddressHandler" icon="location-o" title="常用地址" />
           <div style="text-align:center">
           <van-cell @click="logoutHandler" title="退出" />
           </div>
@@ -36,10 +42,19 @@ export default {
 }
 </script>
 <style scoped>
+    .login{
+        height: 1000px;
+        background: rgb(248, 245, 245);
+    }
+    .logo{
+        background: white;
+        padding:15px 10px
+    }
     .header{
         text-align: center;
         line-height: 3rem;
-        border-bottom: 1px solid #ccc
+        border-bottom: 1px solid #ccc;
+        background: white
     }
     .tupian{
         border:1px solid #ccc;
