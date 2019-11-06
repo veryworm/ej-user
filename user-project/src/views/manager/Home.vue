@@ -39,11 +39,7 @@ import {mapState, mapActions} from 'vuex'
 export default {
   data(){
     return {
-      images: [
-        
-        '../../assets/12-home.jpg',
-        '../../assets/12-home.jpg'
-      ]
+      
     }
   },
   computed:{

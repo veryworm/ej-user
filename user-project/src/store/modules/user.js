@@ -37,7 +37,7 @@ export default {
             await dispatch("Info",token)
         },
         async register({commit,dispatch},payload){
-            let response = await post_array("/customer/saveOrUpdate",payload)
+            let response = await post("/customer/saveOrUpdate",payload)
             return response;
         },
         async info({commit,dispatch},token){
@@ -63,8 +63,8 @@ export default {
             dispatch("findAddressByUserId?id="+id)
             return response;
         },
-        async SaveOrUpdateAddress({commit,dispatch},address){
-            let response = await post_array("/address/saveOrUpdate",address)
+        async SaveOrUpdateAddress({commit,dispatch},address,id){
+            let response = await post_array("/address/saveOrUpdate",address,id)
             commit("resetAddress",response.data)
             return response;
         },

@@ -61,10 +61,6 @@ const routes = [
     component: () => import('../views/manager/Userregister.vue')
   },
   {
-    path: '/confrimUser',
-    component: () => import('../views/manager/confrimUser.vue')
-  },
-  {
     path:'/address',
     name:'address',
     component:()=>import('../views/manager/addresssum/Address')

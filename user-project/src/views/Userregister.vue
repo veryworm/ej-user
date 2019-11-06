@@ -13,12 +13,29 @@
                 right-icon="question-o"
                 placeholder="请输入用户名"
             />
-
             <van-field
                 v-model="form.password"
                 type="password"
                 label="密码"
                 placeholder="请输入密码"
+                required
+            />
+            <van-field
+                v-model="form.telephone"
+                label="手机号"
+                placeholder="请输入手机号"
+                required
+            />
+            <van-field
+                v-model="form.qq"
+                label="qq"
+                placeholder="请输入QQ"
+                required
+            />
+             <van-field
+                v-model="form.wx"
+                label="wx"
+                placeholder="请输入微信号"
                 required
             />
          </van-cell-group>

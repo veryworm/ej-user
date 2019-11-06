@@ -10,71 +10,19 @@
         </div>
         <!-- 编辑地址 -->
         <div class="editaddress_message">
-           <form :model="form">
-            <div>
-                <van-row>
-                    <van-col span="4"><div class="shengfen"> <span style="color:red">*</span>姓名</div></van-col>
-                    <van-col span="8">
-                        <input v-model="form.name" type="text" name="" id="xialakuang">
-                    </van-col>
-                </van-row>
-            </div>
-
-             <div>
-                <van-row>
-                    <van-col span="4"><div class="shengfen"> <span style="color:red">*</span>手机号</div></van-col>
-                    <van-col span="8">
-                        <input v-model="form.telephone" type="text" name="" id="xialakuang">
-                    </van-col>
-                </van-row>
-            </div>
-
-            <div class="xian">
-            <van-row>
-                <van-col span="4"><div class="shengfen"> <span style="color:red">*</span> 省份</div></van-col>
-                <van-col span="8">
-                    <select v-model="form.province" name="" id="xialakuang" placeholder="请选取省份">
-                      <option>{{form.province}}</option>
-                      <option>北京省</option>
-                      <option>内蒙古</option>
-                      <option>山西省</option>
-                      <option>上海市</option>
-                      <option>天津市</option>
-                      <option>苏州市</option>
-                      <option>江苏省</option>
-                    </select>
-                </van-col>
-            </van-row>
-             </div>
-
-            <div class="xian">
-            <van-row>
-                <van-col span="4"><div class="shengfen"> <span style="color:red">*</span>区</div></van-col>
-                <van-col span="8">
-                    <select v-model="form.area" name="" id="xialakuang" placeholder="请选取区域">
-                      <option>{{form.area}}</option>
-                      <option>798艺术区</option>
-                      <option>巴城镇</option>
-                      <option>010艺术区</option>
-                      <option>古洛路</option>
-                      <option>西城大道</option>
-                      <option>黄塔寺</option>
-                    </select>
-                </van-col>
-            </van-row>
-            </div>
-
-             <div class="xian">
-            <van-row>
-                <van-col span="4"><div class="shengfen"> <span style="color:red">*</span>详细地址</div></van-col>
-                <van-col span="8">
-                    <input v-model="form.address" type="text" name="" id="xialakuang">
-                </van-col>
-            </van-row>
-            </div>
-
-            </form>
-            <van-button size="large" @click="submitHandler" type="danger">提交</van-button>
+            <van-field v-model="form.telephone" label="手机号"/>
+            <van-field v-model="address" label="地址" @click.prevent="showPopup"/>
+                <van-popup v-model="show" position="bottom">
+                        <van-area
+                        :area-list="areaList"
+                        :columns-placeholder="['请选择', '请选择', '请选择']"
+                        @confirm="getparams"
+                        @cancel = "quxiao"
+                        />
+                </van-popup>
+            {{form}}
+            {{address}}
+            <van-button @click="submitHandler" type="danger" size="large">提交</van-button>
         </div>
     </div> 
 </template>
@@ -84,7 +32,60 @@ export default {
     data(){
         return{
              form:{},
-            
+             show:false,
+             address:[],
+                areaList:{
+                  province_list: {
+                    110000: '北京市',
+                    120000: '天津市',
+                    130000: '太原市',
+                    140000: '江苏市',
+                    150000: '南京市',
+                    160000: '长沙市',
+                    170000: '厦门市',
+                  },
+                city_list: {
+                    110100: '北京市',
+                    110200: '县',
+                    120100: '天津市',
+                    120200: '县',
+                    130100: '太原市',
+                    130200: '县',
+                    140100: '江苏市',
+                    140200: '县',
+                    150100: '南京市',
+                    150200: '县',
+                    160100: '长沙市',
+                    160200: '县',
+                    170100: '长沙市',
+                    170200: '县'
+                  },
+                county_list: {
+                    110101: '东城区',
+                    110102: '西城区',
+                    110105: '朝阳区',
+                    110106: '丰台区',
+                    120101: '和平区',
+                    120102: '河东区',
+                    120103: '河西区',
+                    120104: '南开区',
+                    120105: '河北区',
+                    130101: '交城区',
+                    130102: '清徐区',
+                    130103: '南加庄区',
+                    130104: '天宁区',
+                    140101: '宝鸡区',
+                    140102: '宝沙区',
+                    140103: '光路区',
+                    150101: '华安区',
+                    150102: '华北区',
+                    160101: '南部区',
+                    160102: '北部区',
+                    170101: '北狼区',
+                    170102: '惠胡区',
+                    // ....
+                }
+             }
         }
     },
     computed:{
@@ -105,6 +106,19 @@ export default {
                     });
                    this.$router.push({path:'/address',query:{id:this.info.id}})
                })
+            },
+            showPopup(){
+                this.show = true;
+            },
+            getparams(response){
+                this.form.province = response[0].name;
+                this.form.city = response[1].name;
+                this.form.area = response[2].name;
+                this.address = response[0].name + "" + response[1].name + "" + response[2].name;
+                this.show = false
+            },
+            quxiao(){
+                this.show = false
             }
         },
         created(){

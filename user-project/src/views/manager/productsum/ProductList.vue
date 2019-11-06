@@ -33,6 +33,7 @@
                 <span class="k">{{total}}</span>
             </div>
             <div class="two">
+                <button @click="clear" class="red">加入购物车</button>
                 <button @click="ToSubmit" class="red">加入购物车</button>
             </div>
         </div>
