@@ -49,7 +49,7 @@ export default {
         // 根据顾客id找到地址信息
         async findAddressByUserId({commit,dispatch},id){
             let response = await get("/address/findByCustomerId?id="+id)
-            dispatch("findAddressByUserId?id="+id)
+            dispatch("findAddressByUserId?id=")
             commit("resetAddress",response.data)
         },
         // 发现所有
