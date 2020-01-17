@@ -11,7 +11,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path:"/",
-    redirect:"/home"
+    redirect:"/login"
   },
   {
     path: '/', 
@@ -35,21 +35,17 @@ const routes = [
       path:"home",
       component:()=>import("../views/manager/Home.vue")
     },{
-      path:"OrderDatail",
-      component:()=>import("../views/manager/ordersum/OrderDatail.vue")
-    },{
-      path:"OrderConfirm",
-      component:()=>import("../views/manager/ordersum/OrderConfirm.vue")
-    },{
       path:"user",
       component:()=>import("../views/manager/User.vue")
-    },{
-      path:"/productlist",
-      component:()=>import("../views/manager/productsum/ProductList")
-    },{
-      path:"/product_details",
-      component:()=>import("../views/manager/productsum/productDetails")
+    },
+    {
+      path:"OrderDatail",
+      component:()=>import("../views/manager/ordersum/OrderDatail.vue")
     }]
+  },
+  {
+      path:"OrderConfirm",
+      component:()=>import("../views/manager/ordersum/OrderConfirm.vue")
   },
   {
     path: '/login',
@@ -74,6 +70,14 @@ const routes = [
     path:"/EditAddress",
     name:'EditAddress',
     component:()=>import("../views/manager/addresssum/EditAddress")
+  },
+  {
+    path:"/productlist",
+    component:()=>import("../views/manager/productsum/ProductList")
+  },
+  {
+    path:"/product_details",
+    component:()=>import("../views/manager/productsum/productDetails")
   }
 ]
 
